@@ -1,0 +1,10 @@
+{
+  "ipv4": {
+    "match": ["0.0.0.0", "255.255.255.255", "192.0.2.1", "host=203.0.113.20 status=ok", "[198.51.100.5]:443", "192.0.2.0/24", "src 10.0.0.1, dst 10.0.0.2", "(127.0.0.1)", "8.8.8.8:53"],
+    "no_match": ["", "nothing here", "256.1.1.1", "1.256.1.1", "1.1.256.1", "1.1.1.256", "999.999.999.999", "01.2.3.4", "1.02.3.4", "1.2.03.4", "1.2.3.04", "1.2.3", "1.2.3.4.5", "a192.0.2.1", "192.0.2.1a", "_192.0.2.1", "192.0.2.1_", "-192.0.2.1", "192.0.2.1-", "2001:db8::1", "::ffff:192.0.2.1", "192.0.2.1."]
+  },
+  "domains": {
+    "match": ["example.com", "EXAMPLE.COM", "api.example.co.uk", "https://example.com:443/a", "person@example.org", "a-b.example", "a.co", "123.com", "xn--bcher-kva.de", "example.com.", "(example.com)", "report.txt", "example.notarealtld"],
+    "no_match": ["", "localhost", "192.0.2.1", "example.c", "example.123", "-example.com", "example-.com", "example..com", "_example.com", "foo_bar.example.com", "example.com_", "example.com-", ".example.com", "example.com..", "example.xn--p1ai"]
+  }
+}

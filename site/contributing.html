@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contribute — grep.love</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./">grep<span>.love</span></a>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Make a pattern better.</h1>
+      <p>Edit a file in <code>patterns/</code>, add matching and nonmatching examples to <code>tests/cases.json</code>, and open a pull request.</p>
+      <p>Use POSIX extended regex compatible with <code>LC_ALL=C grep -E</code>. One expression per line, without blank lines or comments.</p>
+      <p>Add new endpoints and their limitations to <code>catalog.json</code>, then run:</p>
+      <pre><code>python3 -m unittest discover -s tests -v
+python3 scripts/build.py</code></pre>
+      <p>See CONTRIBUTING.md in the <a href="{{REPO_URL}}">source repository</a> for the full guide.</p>
+    </section>
+  </main>
+</body>
+</html>

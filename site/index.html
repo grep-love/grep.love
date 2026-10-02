@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Small, shared regex patterns for your terminal. Fetch a pattern, grep your files, contribute a fix.">
+  <title>grep.love — patterns worth sharing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./">grep<span>.love</span></a>
+    <nav aria-label="Main">
+      <a href="#patterns">Patterns</a>
+      <a href="{{REPO_URL}}">Contribute ↗</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">A LITTLE LOVE FOR YOUR COMMAND LINE</p>
+      <h1>Less regex wrangling.<br>More <span>finding things.</span></h1>
+      <p class="intro">Shared patterns. Simple URLs. Fetch the expression you need and let grep do what it does best.</p>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span aria-hidden="true">● ● ●</span>
+          <span>bash / zsh</span>
+        </div>
+        <div class="terminal-body">
+          <p class="comment"># Find lines containing an IPv4 address</p>
+          <pre><code>grep -Er -f &lt;(curl -s {{SITE_URL}}/ips) ./logs</code></pre>
+          <p class="result">access.log: connected to <mark>192.0.2.42</mark>:443</p>
+        </div>
+      </div>
+      <p class="under-terminal">No install. No account. Your files stay on your machine.</p>
+    </section>
+    <section id="patterns">
+      <div class="section-title">
+        <h2>A small, growing toolbox.</h2>
+        <span>POSIX extended regex · use -E</span>
+      </div>
+      {{CARDS}}
+    </section>
+    <section class="notes">
+      <div>
+        <p class="eyebrow">ONE PATTERN FILE. MANY POSSIBILITIES.</p>
+        <h2>Made for the pipeline.</h2>
+        <p>Fetch domain patterns and search a file:</p>
+        <pre><code>grep -E -f &lt;(curl -s {{SITE_URL}}/domains) file1</code></pre>
+        <p>Or keep your existing pipeline:</p>
+        <pre><code>cat file1 | grep -E -f &lt;(curl -s {{SITE_URL}}/domains)</code></pre>
+      </div>
+      <aside>
+        <h3>A few useful details</h3>
+        <p>These patterns select whole lines. Boundary characters are part of the match, so <code>-o</code> is not a clean extractor.</p>
+        <p><code>&lt;(...)</code> needs Bash or Zsh. Use <code>LC_ALL=C</code> for predictable ASCII matching. <code>/ips</code> currently means IPv4 only.</p>
+      </aside>
+    </section>
+    <section class="scripting">
+      <h2>Using it in a script?</h2>
+      <p>Download and check the pattern before running grep: a failed curl inside <code>&lt;(...)</code> does not stop grep. Use <code>curl -fsS</code> to report download errors. Keep a local copy for repeatable results.</p>
+      <p><a href="catalog.json">Browse the catalog</a> for pattern scope and checksums.</p>
+    </section>
+    <section class="contribute">
+      <p class="eyebrow">BETTER TOGETHER</p>
+      <h2>Found an edge case?<br>Make the next grep better.</h2>
+      <p>Every pattern lives in Git. Add a test, propose a fix, or bring a new pattern to the collection.</p>
+      <a class="button" href="{{REPO_URL}}">Contribute a pattern ↗</a>
+    </section>
+  </main>
+  <footer>
+    <span class="brand">grep<span>.love</span></span>
+    <span>Plain text. Open source. A little less repetition.</span>
+    <a href="contributing.html">How to contribute</a>
+  </footer>
+</body>
+</html>

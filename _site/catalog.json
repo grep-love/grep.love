@@ -1,0 +1,28 @@
+[
+  {
+    "name": "ipv4",
+    "aliases": [
+      "ips"
+    ],
+    "title": "IPv4 addresses",
+    "description": "Find lines containing dotted-decimal IPv4 addresses, with each octet from 0 to 255.",
+    "limitations": "IPv4 only; no IPv6 or leading-zero octets. Conservative ASCII boundaries reject embedded tokens and a colon immediately before an address. Ports and CIDR suffixes are allowed. A dot immediately after the address is rejected, including sentence punctuation.",
+    "example": "connected to 192.0.2.42:443",
+    "sha256": "22b8b3144378e1ba8168dde6e437b438f088a7da01a085d8ba7bdf4af3175b75",
+    "engine": "POSIX ERE",
+    "flags": "-E",
+    "locale": "C"
+  },
+  {
+    "name": "domains",
+    "aliases": [],
+    "title": "Domain-shaped text",
+    "description": "Find lines containing ASCII hostnames such as example.com or api.example.co.uk.",
+    "limitations": "A heuristic, not DNS validation: requires a 2\u201363 letter final label. No Unicode or punycode TLDs, underscores, or single-label hosts. Punycode in other labels is accepted. Labels are limited to 63 characters; total hostname length is not checked. File names such as report.txt also match. A trailing root dot is accepted.",
+    "example": "GET https://api.example.com/status",
+    "sha256": "b673f4b92073b2c5a5be03807f988aa3711fd9a5c20ecf2579db7884a54512ee",
+    "engine": "POSIX ERE",
+    "flags": "-E",
+    "locale": "C"
+  }
+]

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Small, shared regex patterns for your terminal. Fetch a pattern, grep your files, contribute a fix.">
+  <title>grep.love — patterns worth sharing</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a class="brand" href="./">grep<span>.love</span></a>
+    <nav aria-label="Main">
+      <a href="#patterns">Patterns</a>
+      <a href="contributing.html">Contribute ↗</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <p class="eyebrow">A LITTLE LOVE FOR YOUR COMMAND LINE</p>
+      <h1>Less regex wrangling.<br>More <span>finding things.</span></h1>
+      <p class="intro">Shared patterns. Simple URLs. Fetch the expression you need and let grep do what it does best.</p>
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span aria-hidden="true">● ● ●</span>
+          <span>bash / zsh</span>
+        </div>
+        <div class="terminal-body">
+          <p class="comment"># Find lines containing an IPv4 address</p>
+          <pre><code>grep -Er -f &lt;(curl -s http://localhost:8000/ips) ./logs</code></pre>
+          <p class="result">access.log: connected to <mark>192.0.2.42</mark>:443</p>
+        </div>
+      </div>
+      <p class="under-terminal">No install. No account. Your files stay on your machine.</p>
+    </section>
+    <section id="patterns">
+      <div class="section-title">
+        <h2>A small, growing toolbox.</h2>
+        <span>POSIX extended regex · use -E</span>
+      </div>
+      <article class="pattern">
+      <div class="pattern-top">
+        <h3>IPv4 addresses</h3>
+        <a class="endpoint" href="ipv4">/ipv4 ↗</a>
+      </div>
+      <p>Find lines containing dotted-decimal IPv4 addresses, with each octet from 0 to 255.</p>
+      <pre class="sample"><code>connected to 192.0.2.42:443</code></pre>
+      <details>
+        <summary>Pattern &amp; scope</summary>
+        <pre><code>(^|[^A-Za-z0-9_.:-])((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])([^A-Za-z0-9_.-]|$)</code></pre>
+        <p>IPv4 only; no IPv6 or leading-zero octets. Conservative ASCII boundaries reject embedded tokens and a colon immediately before an address. Ports and CIDR suffixes are allowed. A dot immediately after the address is rejected, including sentence punctuation.</p>
+      </details>
+      <p class="alias">Also available at <a href="ips">/ips</a></p>
+    </article>
+<article class="pattern">
+      <div class="pattern-top">
+        <h3>Domain-shaped text</h3>
+        <a class="endpoint" href="domains">/domains ↗</a>
+      </div>
+      <p>Find lines containing ASCII hostnames such as example.com or api.example.co.uk.</p>
+      <pre class="sample"><code>GET https://api.example.com/status</code></pre>
+      <details>
+        <summary>Pattern &amp; scope</summary>
+        <pre><code>(^|[^A-Za-z0-9_.-])([A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?\.)+[A-Za-z]{2,63}(\.)?([^A-Za-z0-9_.-]|$)</code></pre>
+        <p>A heuristic, not DNS validation: requires a 2–63 letter final label. No Unicode or punycode TLDs, underscores, or single-label hosts. Punycode in other labels is accepted. Labels are limited to 63 characters; total hostname length is not checked. File names such as report.txt also match. A trailing root dot is accepted.</p>
+      </details>
+      
+    </article>
+    </section>
+    <section class="notes">
+      <div>
+        <p class="eyebrow">ONE PATTERN FILE. MANY POSSIBILITIES.</p>
+        <h2>Made for the pipeline.</h2>
+        <p>Fetch domain patterns and search a file:</p>
+        <pre><code>grep -E -f &lt;(curl -s http://localhost:8000/domains) file1</code></pre>
+        <p>Or keep your existing pipeline:</p>
+        <pre><code>cat file1 | grep -E -f &lt;(curl -s http://localhost:8000/domains)</code></pre>
+      </div>
+      <aside>
+        <h3>A few useful details</h3>
+        <p>These patterns select whole lines. Boundary characters are part of the match, so <code>-o</code> is not a clean extractor.</p>
+        <p><code>&lt;(...)</code> needs Bash or Zsh. Use <code>LC_ALL=C</code> for predictable ASCII matching. <code>/ips</code> currently means IPv4 only.</p>
+      </aside>
+    </section>
+    <section class="scripting">
+      <h2>Using it in a script?</h2>
+      <p>Download and check the pattern before running grep: a failed curl inside <code>&lt;(...)</code> does not stop grep. Use <code>curl -fsS</code> to report download errors. Keep a local copy for repeatable results.</p>
+      <p><a href="catalog.json">Browse the catalog</a> for pattern scope and checksums.</p>
+    </section>
+    <section class="contribute">
+      <p class="eyebrow">BETTER TOGETHER</p>
+      <h2>Found an edge case?<br>Make the next grep better.</h2>
+      <p>Every pattern lives in Git. Add a test, propose a fix, or bring a new pattern to the collection.</p>
+      <a class="button" href="contributing.html">Contribute a pattern ↗</a>
+    </section>
+  </main>
+  <footer>
+    <span class="brand">grep<span>.love</span></span>
+    <span>Plain text. Open source. A little less repetition.</span>
+    <a href="contributing.html">How to contribute</a>
+  </footer>
+</body>
+</html>
